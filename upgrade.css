@@ -1,0 +1,269 @@
+/* ===== UPGRADE: ночная сакура ===== */
+:root{--ink:#0b060e;--blush:#f4c9d3;--rose:#e0587c;--gold:#e8c892;--glass:rgba(255,246,248,.045);--line:rgba(244,201,211,.16)}
+body{font-family:'Manrope','Segoe UI',sans-serif;background:var(--ink)}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:99998;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* убираем дешёвые эмодзи-эффекты, вместо них — canvas-лепестки */
+.petals,.branch,.sakura-branches{display:none}
+.aurora{opacity:.24}
+.aurora-1{background:var(--rose)}.aurora-2{background:#5b2a6e}.aurora-3{background:#8a5a34}
+.intro-screen{background:radial-gradient(circle at 50% 40%,#2a0f24 0%,var(--ink) 70%)}
+#petalCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1001}
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:99997;background:linear-gradient(90deg,var(--rose),var(--gold));transform-origin:0 50%;transform:scaleX(0)}
+
+/* типографика */
+.hero-title,.block-title,.intro-names,.final-title,.intro-counter-big,.counter-number,.stat-number,.secret-date,.diff-card h3,.future-item h3,.timeline-content h3,.game-card h3{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;color:var(--blush);text-shadow:none}
+.hero-title{font-size:clamp(72px,17vw,220px);line-height:.9;letter-spacing:-.03em;text-shadow:0 0 70px rgba(224,88,124,.35)}
+.block-title{font-size:clamp(40px,7vw,78px);font-weight:500;letter-spacing:-.01em;line-height:1.05}
+.block-subtitle{font-style:normal;color:rgba(244,201,211,.6);font-size:17px;letter-spacing:.02em}
+.intro-names{font-size:clamp(56px,14vw,130px);text-shadow:0 0 50px rgba(224,88,124,.5)}
+.intro-counter-big{font-size:clamp(80px,20vw,150px)}
+.hero-message,.main-message-text,.final-text,.intro-quote-main,.compliment-message,.secret-message,.future-final{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(20px,2.4vw,27px);line-height:1.65;color:rgba(255,240,244,.88)}
+.intro-quote-main{font-size:clamp(17px,2vw,21px)}
+.counter-number{font-size:clamp(36px,9vw,66px);font-weight:500;font-variant-numeric:tabular-nums}
+.stat-number{font-size:clamp(44px,8vw,68px)}
+.counter-label,.stat-label,.hero-subtitle,.intro-label,.letter-progress span{text-transform:none;letter-spacing:.06em;color:rgba(244,201,211,.7);text-shadow:none}
+.timeline-date{text-transform:none;letter-spacing:.05em;color:var(--gold)}
+.main-message-text strong,.diff-bottom,.final-signature,.hero-date,.main-message-sign,.game-result,.game-info{color:var(--blush);text-shadow:none}
+.main-message-text strong{font-size:1.15em}
+.love-word{color:rgba(244,201,211,.2);text-shadow:none;font-family:'Cormorant Garamond',serif}
+
+/* стеклянные карточки */
+.counter-item,.timeline-content,.tile,.diff-card,.stat-card,.secret-btn,.game-card,.letter-fragment,.future-item,.main-message-card,.final-comment,.compliment-message,.secret-message,.intro-list-item,.intro-quote-main,.intro-fun-item{background-color:var(--glass);border:1px solid var(--line);box-shadow:none;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.main-message-card,.final-comment{border-radius:56px 6px 56px 6px}
+.main-message-card::before{color:rgba(232,200,146,.35)}
+.game-modal-content{background:rgba(14,7,18,.97);border:1px solid var(--line);box-shadow:0 30px 100px -20px rgba(224,88,124,.5)}
+.game-card.completed{border-color:var(--gold);box-shadow:0 0 50px -10px rgba(232,200,146,.5)}
+.tile:hover,.game-card:hover,.stat-card:hover,.counter-item:hover,.diff-card:hover,.secret-btn:hover,.future-item:hover,.timeline-content:hover{border-color:rgba(224,88,124,.6);box-shadow:0 24px 60px -24px rgba(224,88,124,.55)}
+.tile,.game-card,.stat-card,.counter-item,.diff-card{transition:transform .2s ease-out,border-color .3s,box-shadow .3s;will-change:transform;background-image:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(244,201,211,.11),transparent 65%)}
+
+/* кнопки */
+.compliment-btn,.game-btn,.intro-next{background:var(--blush);color:#2a0f1c;font-weight:700;letter-spacing:.02em;text-transform:none;box-shadow:0 12px 40px -12px rgba(224,88,124,.8)}
+.compliment-btn:hover,.game-btn:hover,.intro-next:hover{background:#fff;color:#2a0f1c;transform:translateY(-2px) scale(1.03);box-shadow:0 16px 50px -10px rgba(224,88,124,.9)}
+.intro-btn{background:transparent;border-color:var(--blush);color:var(--blush)}
+.intro-btn:hover{background:var(--blush);color:#2a0f1c}
+.letter-progress-fill{background:linear-gradient(90deg,var(--rose),var(--gold));box-shadow:none}
+
+/* первое появление заголовка по буквам */
+.hero .ch{display:inline-block;opacity:0;transform:translateY(.5em) rotate(5deg);filter:blur(10px)}
+.hero.visible .ch{animation:chIn 1.2s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*80ms + .3s)}
+@keyframes chIn{to{opacity:1;transform:none;filter:none}}
+
+/* таймлайн рисуется по мере прокрутки */
+.timeline::before{opacity:.2}
+.timeline::after{content:'';position:absolute;left:15px;top:0;width:2px;height:calc(var(--tl,0)*100%);background:linear-gradient(var(--blush),var(--rose));box-shadow:0 0 12px var(--rose)}
+.timeline-item{opacity:.3;transition:opacity .8s}
+.timeline-item.on{opacity:1}
+.timeline-dot{background:#3a2230;box-shadow:none;animation:none;transition:all .6s}
+.timeline-item.on .timeline-dot{background:var(--rose);box-shadow:0 0 16px var(--rose)}
+
+/* созвездие-сердце */
+#constellation{display:block;margin:-10px auto 10px;max-width:100%;height:auto;cursor:none}
+
+@media (pointer:coarse){body{cursor:auto}.custom-cursor,.cursor-trail{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== v2: структура и ритм ===== */
+html{scroll-padding-top:70px}
+.block{min-height:auto;padding:120px 24px}
+.hero{min-height:92vh;padding-top:140px}
+.hero-message{max-width:34em}
+.counter-block{padding-top:0;padding-bottom:80px}
+.block-title{margin-bottom:14px}
+.block-subtitle{margin-bottom:56px;max-width:36em}
+.timeline-block,.diff-block,.letter-block{background:linear-gradient(180deg,transparent,rgba(224,88,124,.045) 50%,transparent)}
+
+/* навигация */
+.topnav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:900;display:flex;gap:2px;padding:6px;border-radius:999px;background:rgba(14,7,18,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none;transition:opacity .8s}
+.topnav::-webkit-scrollbar{display:none}
+body.intro-active .topnav{opacity:0;pointer-events:none}
+.topnav a{color:rgba(244,201,211,.75);text-decoration:none;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;white-space:nowrap;cursor:none;transition:.3s}
+.topnav a:hover{color:#fff}
+.topnav a.active{background:var(--blush);color:#2a0f1c}
+
+/* таймлайн: зигзаг вокруг центральной линии */
+.timeline{max-width:1000px;padding:0}
+.timeline::before,.timeline::after{left:50%;transform:translateX(-50%)}
+.timeline-item{width:50%;margin-bottom:44px;padding:0 52px 0 0;text-align:right}
+.timeline-item:nth-child(even){margin-left:50%;padding:0 0 0 52px;text-align:left}
+.timeline-dot{top:22px;left:auto;right:-9px}
+.timeline-item:nth-child(even) .timeline-dot{right:auto;left:-9px}
+.timeline-content:hover{transform:translateY(-4px)}
+.timeline-item.love p{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:21px;line-height:1.6;color:rgba(255,240,244,.9)}
+.timeline-item.love .timeline-content{border-color:rgba(232,200,146,.28)}
+.timeline-item.feature{width:100%;margin:64px 0 0;padding:0;text-align:center}
+.timeline-item.feature:nth-child(even){margin-left:0;padding:0}
+.timeline-item.feature .timeline-dot{left:50%;right:auto;top:-32px;transform:translateX(-50%)}
+.timeline-item.feature .timeline-content{max-width:760px;margin:0 auto;padding:52px 44px;border-radius:56px 6px 56px 6px;background-color:rgba(232,200,146,.05)}
+.timeline-item.feature h3{font-size:44px}
+.timeline-item.feature p{font-size:clamp(21px,2.6vw,26px);margin-bottom:1em}
+.timeline-item.feature p.last{color:var(--blush);font-size:clamp(23px,3vw,30px);margin:1.4em 0 0}
+
+/* плитки: бенто-сетка */
+.tiles-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(170px,auto);max-width:1000px;gap:16px}
+.tile{aspect-ratio:auto;position:relative;color:#fff;font:inherit;border-radius:22px}
+.tile::after{content:'+';position:absolute;top:12px;right:18px;font-size:24px;color:var(--gold);transition:transform .4s}
+.tile:hover::after{transform:rotate(90deg)}
+.tile:nth-child(1){grid-column:span 2;grid-row:span 2}
+.tile:nth-child(7){grid-column:span 3}
+.tile:nth-child(1) .tile-icon{font-size:76px}
+.tile:nth-child(1) .tile-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:36px;font-weight:600}
+.tile-text{font-size:16px}
+@media(max-width:700px){.tiles-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(140px,auto)}.tile:nth-child(1){grid-column:span 2;grid-row:auto}.tile:nth-child(7){grid-column:span 1}}
+
+/* окно со словами */
+.reveal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(8,3,10,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.reveal.open{opacity:1;visibility:visible}
+.reveal-card{max-width:560px;width:100%;text-align:center;padding:56px 40px 40px;border-radius:56px 6px 56px 6px;background:rgba(20,9,24,.96);border:1px solid rgba(232,200,146,.3);box-shadow:0 40px 120px -30px rgba(224,88,124,.6);transform:translateY(20px) scale(.97);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.reveal.open .reveal-card{transform:none}
+.reveal-icon{font-size:56px;margin-bottom:10px}
+.reveal-card h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:40px;color:var(--blush);margin-bottom:18px}
+.reveal-card p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(21px,3vw,26px);line-height:1.65;color:rgba(255,240,244,.92)}
+.reveal-card p span{display:inline-block;margin-right:.26em;opacity:0}
+.reveal.open p span{animation:wIn .7s both;animation-delay:calc(var(--i)*55ms + .3s)}
+@keyframes wIn{from{opacity:0;transform:translateY(8px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.reveal-close{margin-top:28px;background:transparent;border:1px solid var(--line);color:var(--blush);padding:10px 26px;border-radius:999px;font-size:15px;cursor:none}
+.reveal-close:hover{border-color:var(--blush)}
+
+/* «Ты» и «Я» */
+.diff-grid{max-width:1000px;gap:28px;align-items:stretch}
+.diff-card{padding:44px 36px 36px}
+.diff-card h3{font-size:68px;line-height:1;margin-bottom:22px;text-align:left}
+.diff-card li{padding:14px 0 14px 28px;position:relative;border-bottom:1px solid var(--line);font-size:16px}
+.diff-card li::before{content:'♥';position:absolute;left:0;top:16px;color:var(--rose);font-size:13px}
+.diff-her{border-radius:6px 56px 6px 56px}
+.diff-me{border-radius:56px 6px 56px 6px}
+.diff-heart{font-size:44px;align-self:center}
+.diff-bottom{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,32px);color:var(--gold);text-shadow:none;margin-top:56px}
+
+/* статистика: тонкая полоса */
+.stats-grid{grid-template-columns:repeat(4,1fr);max-width:1000px;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat-card{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:48px 16px;-webkit-backdrop-filter:none;backdrop-filter:none}
+.stat-card:first-child{border-left:0}
+.stat-card:hover{border-color:var(--line);box-shadow:none;transform:none}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card:nth-child(3){border-left:0}.stat-card:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* секреты, игры, письмо */
+.secrets-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));max-width:1000px;gap:14px}
+.secret-btn{border-radius:18px;padding:22px;font-size:16px}
+.secret-message{max-width:1000px}
+.games-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));max-width:1100px}
+.game-card{text-align:left;display:flex;flex-direction:column;padding:32px 26px}
+.game-card p{flex:1}
+.game-btn{align-self:flex-start}
+.letter-fragment{padding:28px 32px 28px 40px;border-left:3px solid var(--line)}
+.letter-fragment.unlocked{border-left-color:var(--gold)}
+.letter-fragment.unlocked p:not(.fragment-placeholder){font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.6}
+.letter-fragment .fragment-fact{color:var(--gold)}
+
+/* будущее: дорожная карта */
+.future-timeline{position:relative;max-width:820px;gap:34px}
+.future-timeline::before{content:'';position:absolute;left:37px;top:30px;bottom:30px;width:1px;background:linear-gradient(var(--rose),var(--gold),transparent)}
+.future-item,.future-item:hover{background:none;border:0;box-shadow:none;padding:0;gap:28px;align-items:center;-webkit-backdrop-filter:none;backdrop-filter:none}
+.future-item:hover{transform:translateX(6px)}
+.future-icon{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;background:#150a19;border:1px solid rgba(232,200,146,.4);filter:none;position:relative;z-index:1}
+.future-item h3{font-size:30px;margin-bottom:6px}
+@media(max-width:900px){.future-item{flex-direction:row;text-align:left;gap:18px}}
+@media(max-width:600px){.future-icon{width:56px;height:56px;font-size:24px}.future-timeline::before{left:27px}}
+
+/* таймлайн на телефоне — одна колонка */
+@media(max-width:800px){
+  .timeline{padding-left:28px}
+  .timeline::before,.timeline::after{left:8px;transform:none}
+  .timeline-item,.timeline-item:nth-child(even){width:100%;margin-left:0;padding:0 0 0 22px;text-align:left}
+  .timeline-dot,.timeline-item:nth-child(even) .timeline-dot{left:-28px;right:auto;top:22px}
+  .timeline-item.feature,.timeline-item.feature:nth-child(even){padding:0 0 0 22px;margin-top:44px}
+  .timeline-item.feature .timeline-dot{left:-28px;top:22px;transform:none}
+  .timeline-item.feature .timeline-content{padding:36px 24px;text-align:left}
+  .timeline-item.feature h3{font-size:34px}
+}
+
+/* ===== v3: вау ===== */
+#treeCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}
+.hero::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--sx,50%) var(--sy,40%),rgba(224,88,124,.16),transparent 70%)}
+.hero-title{text-shadow:0 0 70px rgba(224,88,124,.35),0 4px 30px rgba(11,6,14,.8)}
+
+.marquee{position:relative;z-index:2;overflow:hidden;padding:34px 0;border-block:1px solid var(--line);background:rgba(255,246,248,.02);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:mq 45s linear infinite}
+.mq{display:flex}
+.mq span{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(48px,9vw,110px);line-height:1.1;white-space:nowrap;padding-right:.7em;color:transparent;-webkit-text-stroke:1px rgba(244,201,211,.5)}
+.mq span:nth-child(even){color:var(--blush);-webkit-text-stroke:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+.block .block-title{clip-path:inset(100% -.3em -.2em -.3em);transform:translateY(.4em);letter-spacing:.12em;transition:clip-path 1.2s cubic-bezier(.2,.8,.2,1),transform 1.2s cubic-bezier(.2,.8,.2,1),letter-spacing 1.6s cubic-bezier(.2,.8,.2,1)}
+.block.visible .block-title{clip-path:inset(-.2em -.3em -.2em -.3em);transform:none;letter-spacing:-.01em}
+
+.intro-hint{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(20px,3vw,26px);color:var(--gold)}
+.secret-date{font-size:clamp(44px,10vw,120px);line-height:1.05}
+
+.music-btn{position:fixed;right:16px;bottom:16px;z-index:100001;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(14,7,18,.7);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--blush);font-size:20px;cursor:none;transition:.3s}
+.music-btn:hover{border-color:var(--blush)}
+.music-btn.on{background:var(--blush);color:#2a0f1c;box-shadow:0 0 30px rgba(244,201,211,.5)}
+@media (pointer:coarse){.music-btn{cursor:auto}}
+@media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+/* ===== v4: дуэт «она и я», атмосфера, новые игры ===== */
+:root{--olive:#8a9a4b}
+.diff-me{border-color:rgba(138,154,75,.4)}
+.diff-me h3{color:#c9d58f}
+.diff-me li::before{color:var(--olive)}
+.diff-me:hover{border-color:var(--olive);box-shadow:0 24px 60px -24px rgba(138,154,75,.5)}
+
+/* блок «Про меня»: строгий, оливковый (она — лепестки, он — прямые углы) */
+.me-block{background:linear-gradient(180deg,transparent,rgba(138,154,75,.07) 50%,transparent)}
+.me-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1000px;width:100%}
+.me-item{padding:28px 24px;border-radius:4px;border:1px solid rgba(138,154,75,.35);background:linear-gradient(160deg,rgba(138,154,75,.14),rgba(255,255,255,.015));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:border-color .3s,box-shadow .3s,opacity .9s calc(var(--n,0)*70ms),translate .9s cubic-bezier(.2,.8,.2,1) calc(var(--n,0)*70ms)}
+.me-item:hover{border-color:var(--olive);box-shadow:0 20px 50px -24px rgba(138,154,75,.6)}
+.me-icon{display:block;font-size:40px;margin-bottom:14px}
+.me-icon.swatch{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#a3b35c,#5d6b26);box-shadow:0 0 0 3px rgba(138,154,75,.3)}
+.me-item h3{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:28px;color:#c9d58f;margin-bottom:6px}
+.me-item p{font-size:15px;line-height:1.55;color:rgba(255,246,240,.8)}
+.me-item.her{grid-column:1/-1;display:flex;align-items:center;gap:22px;border-radius:6px 56px 6px 56px;border-color:rgba(224,88,124,.45);background:linear-gradient(160deg,rgba(224,88,124,.16),rgba(255,255,255,.015))}
+.me-item.her:hover{border-color:var(--rose);box-shadow:0 20px 50px -24px rgba(224,88,124,.6)}
+.me-item.her h3{color:var(--blush);font-size:42px}
+.me-item.her .me-icon{margin:0;font-size:56px}
+@media(max-width:800px){.me-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* карточки появляются по очереди */
+.tiles-grid>*,.games-grid>*,.stats-grid>*{opacity:0;translate:0 26px;transition:transform .2s ease-out,border-color .3s,box-shadow .3s,opacity .9s calc(var(--n,0)*70ms),translate .9s cubic-bezier(.2,.8,.2,1) calc(var(--n,0)*70ms)}
+.me-grid>*{opacity:0;translate:0 26px}
+.block.visible .tiles-grid>*,.block.visible .games-grid>*,.block.visible .stats-grid>*,.block.visible .me-grid>*{opacity:1;translate:0 0}
+
+/* игры: аркадная сетка */
+.games-block{background-image:radial-gradient(rgba(244,201,211,.12) 1px,transparent 1px);background-size:22px 22px}
+.range-area{position:relative;height:380px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(#2a1424 0%,#7a3b3a 60%,#a8693f 60%,#5a3524 100%)}
+.range-decor{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:44px;letter-spacing:.8em;pointer-events:none;opacity:.8}
+.range-t{position:absolute;font-size:46px;user-select:none;touch-action:manipulation;animation:pop .25s}
+@keyframes pop{from{transform:scale(0)}}
+.tetris-canvas{display:block;margin:0 auto;width:min(100%,220px);height:auto;border:1px solid var(--line);border-radius:10px;background:#0d0610}
+.tetris-pad{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.tetris-pad button{width:52px;height:52px;border-radius:14px;border:1px solid var(--line);background:rgba(244,201,211,.1);color:var(--blush);font-size:20px;cursor:none;touch-action:manipulation}
+.tetris-pad button:active{background:var(--blush);color:#2a0f1c}
+@media (pointer:coarse){.tetris-pad button{cursor:auto}}
+
+/* письмо: настоящая бумага */
+.letter-fragment.unlocked{background:#f3e6d3;border:0;border-radius:3px;box-shadow:0 20px 40px -18px rgba(0,0,0,.85);transform:rotate(-1.1deg);-webkit-backdrop-filter:none;backdrop-filter:none}
+.letter-fragment.unlocked:nth-child(even){transform:rotate(1deg)}
+.letter-fragment.unlocked::before{content:'';position:absolute;top:-11px;left:50%;width:90px;height:22px;transform:translateX(-50%) rotate(-3deg);background:rgba(232,200,146,.6)}
+.letter-fragment.unlocked p:not(.fragment-placeholder){font-family:'Caveat',cursive;font-style:normal;font-weight:500;font-size:28px;line-height:1.3;color:#3a2430}
+.letter-fragment.unlocked .fragment-fact{color:#9a3d55;font-family:'Caveat',cursive;font-size:22px;font-style:normal;letter-spacing:0}
+
+/* мини-Даша */
+.mini{position:fixed;left:18px;bottom:18px;width:104px;z-index:950;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;filter:drop-shadow(0 12px 18px rgba(0,0,0,.55));animation:bob 3.4s ease-in-out infinite}
+.mini svg{display:block;width:100%;height:auto;pointer-events:none}
+.mini.drag{cursor:grabbing;animation:none;transform:scale(1.1) rotate(-4deg)}
+.mini.land{animation:land .5s cubic-bezier(.3,1.6,.5,1)}
+.mini.cheer{animation:cheer .6s 2}
+body.intro-active .mini{display:none}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes land{0%{transform:translateY(-16px) scaleY(1.08)}60%{transform:scaleY(.92)}100%{transform:none}}
+@keyframes cheer{50%{transform:translateY(-22px) rotate(6deg)}}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.mini-bubble{position:absolute;bottom:100%;left:0;width:max-content;max-width:220px;margin-bottom:8px;padding:10px 14px;border-radius:16px 16px 16px 4px;background:var(--blush);color:#2a0f1c;font-size:14px;font-weight:600;line-height:1.35;opacity:0;transform:translateY(6px) scale(.95);transition:.3s;pointer-events:none}
+.mini.right .mini-bubble{left:auto;right:0;border-radius:16px 16px 4px 16px}
+.mini-bubble.on{opacity:1;transform:none}
+@media(max-width:600px){.mini{width:80px}}
+@media (prefers-reduced-motion:reduce){.mini,.eyes{animation:none}}

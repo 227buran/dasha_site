@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Даши ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="upgrade.css">
+</head>
+<body class="intro-active">
+    <div class="scroll-progress"></div>
+    <nav class="topnav" aria-label="Разделы"><a href="#path">Путь</a><a href="#facts">Факты</a><a href="#us">Мы</a><a href="#me">Про меня</a><a href="#games">Игры</a><a href="#letter">Письмо</a><a href="#future">Будущее</a></nav>
+
+    <div class="custom-cursor" id="customCursor">❤️</div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- ===== ИНТРО ===== -->
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-fade"></div>
+        <div class="intro-stage" id="introStage">
+
+            <div class="intro-step active" data-step="1">
+                <div class="intro-names" id="introNames">DASKSIV</div>
+                <div class="intro-question-big">Здесь кое-что только для тебя</div>
+                <p class="intro-hint">Пройди все игры — и тебя ждёт что-то особенное 🤍</p>
+                <button class="intro-next" data-next="3">Начать ❤️</button>
+            </div>
+
+            <div class="intro-step" data-step="3">
+                <div class="intro-label">Самое важное сообщение в моей жизни</div>
+                <div class="intro-quote-main">
+                    «Ты у меня самый любимый и самый лучший. Поняла, что ты у меня и вправду самый лучший, и мне с тобой очень сильно повезло. Если бы не ты, я бы не знаю где щас была бы. Ты мне на многое глаза открыл, с тобой я правда себя самой счастливой ощущаю и живой. Ты сделал то, чего другие не могли, ты доводишь до бабочек в животе. Мне не нужны от тебя подарки, деньги, цветы, телефоны — мне нужен только ты, твоя улыбка и твои прикосновения. Мне правда очень хорошо с тобой, я чувствую себя ребёнком в безопасности. Люблю тебя очень сильно.»
+                </div>
+                <button class="intro-next" data-next="4">Дальше →</button>
+            </div>
+
+            <div class="intro-step" data-step="4">
+                <div class="intro-label">Что тебя ждёт</div>
+                <div class="intro-list">
+                    <div class="intro-list-item">🌸 Наша история</div>
+                    <div class="intro-list-item">💕 Твои слова, которые я храню</div>
+                    <div class="intro-list-item">🎮 7 испытаний</div>
+                    <div class="intro-list-item">💌 Письмо, которое собирается по кусочкам</div>
+                    <div class="intro-list-item">🌅 Наше будущее</div>
+                    <div class="intro-list-item">💍 И кое-что важное в конце</div>
+                </div>
+                <button class="intro-next" data-next="5">Дальше →</button>
+            </div>
+
+            <div class="intro-step" data-step="5">
+                <div class="intro-label">Мы вместе уже</div>
+                <div class="intro-counter-big" id="introCounterBig">0</div>
+                <div class="intro-sub">дней. И это только начало ❤️</div>
+                <button class="intro-next" data-next="6">Дальше →</button>
+            </div>
+
+            <div class="intro-step" data-step="6">
+                <div class="intro-label">И ещё...</div>
+                <div class="intro-fun">
+                    <div class="intro-fun-item">💌 Секретные послания — открой, когда грустно, скучаешь, злишься</div>
+                    <div class="intro-fun-item">💬 Кнопка комплиментов — жми и получай тёплые слова</div>
+                    <div class="intro-fun-item">🎮 7 игр, за каждую — обрывок письма</div>
+                    <div class="intro-fun-item">🎁 Пройдёшь все семь — тебя ждёт что-то особенное</div>
+                    <div class="intro-fun-item">🌸 Лепестки сакуры падают по всему сайту</div>
+                </div>
+                <button class="intro-next intro-next-final" data-next="end">Открыть сайт ❤️</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== ОСНОВНОЙ САЙТ ===== -->
+    <div class="main-site hidden" id="mainSite">
+
+        <canvas id="particlesCanvas"></canvas>
+
+        <div class="aurora">
+            <div class="aurora-blob aurora-1"></div>
+            <div class="aurora-blob aurora-2"></div>
+            <div class="aurora-blob aurora-3"></div>
+        </div>
+
+        <div class="sakura-branches">
+            <div class="branch branch-top-left">🌸</div>
+            <div class="branch branch-top-right">🌸</div>
+            <div class="branch branch-bottom-left">🌸</div>
+            <div class="branch branch-bottom-right">🌸</div>
+        </div>
+
+        <div class="petals" id="petals"></div>
+        <div class="hearts-bg" id="heartsBg"></div>
+        <div class="love-words" id="loveWords"></div>
+
+        <!-- HERO -->
+        <section class="block hero">
+            <canvas id="treeCanvas" aria-hidden="true"></canvas>
+            <h1 class="hero-title">Для Даши</h1>
+            <p class="hero-message">
+                Даша, я не знаю, как правильно сказать всё, что чувствую. Но знаю, что ты — моё тепло.
+                Ты — тот человек, с которым я хочу просыпаться. Тот, ради кого я готов на всё.
+                Спасибо, что ты рядом. Спасибо, что ты есть.
+            </p>
+            <p class="hero-subtitle">Мы вместе уже</p>
+        </section>
+
+        <!-- СЧЁТЧИК -->
+        <section class="block counter-block">
+            <div class="counter">
+                <div class="counter-item"><span class="counter-number" id="days">0</span><span class="counter-label">дней</span></div>
+                <div class="counter-item"><span class="counter-number" id="hours">0</span><span class="counter-label">часов</span></div>
+                <div class="counter-item"><span class="counter-number" id="minutes">0</span><span class="counter-label">минут</span></div>
+                <div class="counter-item"><span class="counter-number" id="seconds">0</span><span class="counter-label">секунд</span></div>
+            </div>
+            <p class="hero-date">с 3 апреля 2026 года, 15:00</p>
+            <p class="hero-date" id="monthsLine"></p>
+        </section>
+
+        <!-- ГЛАВНОЕ СООБЩЕНИЕ -->
+        <section class="block main-message-block">
+            <h2 class="block-title">Самое важное сообщение</h2>
+            <p class="block-subtitle">То, что я храню в сердце</p>
+            <div class="main-message-card">
+                <div class="main-message-text">
+                    Ты у меня самый любимый и самый лучший.<br><br>
+                    Щас слушала Катю и Сашу как у них все плохо с парнями/интрижками. Поняла, что ты у меня и вправду самый лучший и мне с тобой очень сильно повезло.<br><br>
+                    Если бы не ты, я бы не знаю где щас была бы. Ты мне на многое глаза открыл, с тобой я правда себя самой счастливой ощущаю и живой.<br><br>
+                    Ты сделал то, чего другие не могли, ты доводишь до бабочек в животе.<br><br>
+                    Мне не нужны от тебя подарки, деньги, цветы, телефоны — мне нужен только ты, твоя улыбка и твои прикосновения.<br><br>
+                    Мне правда очень хорошо с тобой, я чувствую себя ребёнком в безопасности.<br><br>
+                    <strong>Люблю тебя очень сильно...</strong>
+                </div>
+                <div class="main-message-sign">— твоя Даша ❤️</div>
+            </div>
+        </section>
+
+        <div class="marquee" aria-hidden="true"><div class="marquee-track"><div class="mq"><span>Я люблю тебя ♥</span><span>Ti amo ♥</span><span>Je t'aime ♥</span><span>Te quiero ♥</span><span>Ich liebe dich ♥</span><span>I love you ♥</span></div><div class="mq"><span>Я люблю тебя ♥</span><span>Ti amo ♥</span><span>Je t'aime ♥</span><span>Te quiero ♥</span><span>Ich liebe dich ♥</span><span>I love you ♥</span></div></div></div>
+
+        <!-- ТАЙМЛАЙН -->
+        <section class="block timeline-block" id="path">
+            <h2 class="block-title">Наш путь</h2>
+            <p class="block-subtitle">Каждый момент — как отдельная вселенная</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">22 марта 2026</span>
+                        <h3>Познакомились</h3>
+                        <p>День, когда вселенная свела нас. Я тогда ещё не знал, что ты станешь моим всем.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">28 марта 2026</span>
+                        <h3>Первая прогулка</h3>
+                        <p>Я был грубый и чёрствый. А ты не ушла. Спасибо, что осталась.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">3 апреля 2026, 15:00</span>
+                        <h3>Начали встречаться</h3>
+                        <p>Официально. День, с которого я считаю свою новую жизнь.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">18 апреля 2026</span>
+                        <h3>Москва</h3>
+                        <p>Первая проверка временем. Расстояние — не помеха, если есть ты.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">10 мая 2026</span>
+                        <h3>Зарница</h3>
+                        <p>Неделя без тебя. Редкие смс. Каждое — как глоток воздуха.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">5–15 сентября 2026</span>
+                        <h3>Трудный период</h3>
+                        <p>Были трудные дни. Но мы не разбежались — мы стали только сильнее.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">17 сентября 2026</span>
+                        <h3>Снова в строю</h3>
+                        <p>Мы вернулись. И стали только сильнее.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">18 сентября 2026</span>
+                        <h3>Ты не подозревала</h3>
+                        <p>В этот день ты ещё не знала, что я начал делать это. Для тебя. Тихо. Чтобы удивить.</p>
+                    </div>
+                </div>
+                <div class="timeline-item love">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">30 сентября 2026</span>
+                        <h3>Во мне что-то екнуло</h3>
+                        <p>В этот день внутри меня тихо что-то екнуло. Я вдруг перестал видеть в тебе просто свою девушку. Я увидел в тебе своё будущее — и понял, что хочу идти к нему только с тобой.</p>
+                    </div>
+                </div>
+                <div class="timeline-item love">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2 октября 2026</span>
+                        <h3>Я влюбился снова</h3>
+                        <p>Ты сделала то, чего я раньше от тебя не видел. И я влюбился в тебя заново — глубже, сильнее, как будто впервые.</p>
+                    </div>
+                </div>
+                <div class="timeline-item love">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">3 октября 2026</span>
+                        <h3>Наши полгода</h3>
+                        <p>Полгода рядом. И я чувствую: с каждым днём, с каждой неделей, с каждым месяцем мы любим друг друга всё крепче. Время нас не отдаляет — оно нас связывает.</p>
+                    </div>
+                </div>
+                <div class="timeline-item love feature">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">4 октября 2026</span>
+                        <h3>Я пишу это в коде</h3>
+                        <p>Сегодня 4 октября, и я пишу всё это прямо в коде. Строчка за строчкой — для тебя.</p>
+                        <p>Мне безумно интересно, какая история будет у нас. Но одно я знаю точно: мы будем вместе.</p>
+                        <p>Я хочу видеть наших детей. Хочу видеть тебя своей жизнью и своей женой. Хочу, чтобы ты навсегда была моей. И пусть даже ссоры никогда не станут нам преградой.</p>
+                        <p class="last">Я люблю тебя безумно. Люблю больше всех на свете. И буду любить так же сильно… всегда.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПЛИТКИ -->
+        <section class="block tiles-block" id="facts">
+            <h2 class="block-title">Маленькие факты</h2>
+            <p class="block-subtitle">Нажми на любую — внутри мои слова</p>
+            <div class="tiles-grid">
+                <button class="tile" data-words="Твоя улыбка умеет останавливать время. Стоит тебе улыбнуться — и всё тяжёлое во мне тихо отступает."><span class="tile-icon">🌸</span><span class="tile-text">Твоя улыбка</span></button>
+                <button class="tile" data-words="Твои работы заставляют меня гордиться тобой. Ты создаёшь красоту своими руками, и я каждый раз восхищаюсь тем, какая ты талантливая."><span class="tile-icon">💅</span><span class="tile-text">Твои ноготки</span></button>
+                <button class="tile" data-words="Ночью весь мир затихает, а мы разговариваем. Твой голос в темноте — моё самое спокойное место."><span class="tile-icon">🌙</span><span class="tile-text">Ночные звонки</span></button>
+                <button class="tile" data-words="Одно твоё сообщение способно изменить весь мой день. Я перечитываю их, когда скучаю, и улыбаюсь как дурак."><span class="tile-icon">💬</span><span class="tile-text">Твои смс</span></button>
+                <button class="tile" data-words="Ты помогаешь мне, даже когда нам непросто. Таких людей почти не бывает, и мне невероятно повезло, что ты — моя."><span class="tile-icon">🤝</span><span class="tile-text">Твоя помощь</span></button>
+                <button class="tile" data-words="В твоих объятиях я дома. Там нет ни расстояний, ни тревог — только ты и тишина, в которой всё хорошо."><span class="tile-icon">🫂</span><span class="tile-text">Твои объятия</span></button>
+                <button class="tile" data-words="Мне не нужно придумывать причины. Я люблю тебя не за что-то, а просто за то, что ты — это ты."><span class="tile-icon">❤️</span><span class="tile-text">Ты. Просто ты.</span></button>
+            </div>
+        </section>
+
+        <!-- МЫ РАЗНЫЕ -->
+        <section class="block diff-block" id="us">
+            <h2 class="block-title">Мы разные, но мы вместе</h2>
+            <p class="block-subtitle">И это — наша суперсила</p>
+            <div class="diff-grid">
+                <div class="diff-card diff-her">
+                    <h3>Ты</h3>
+                    <ul>
+                        <li>Безумно красивая. Реально.</li>
+                        <li>Улыбка, от которой я таю</li>
+                        <li>Нежная и заботливая</li>
+                        <li>Добрая, с огромным сердцем</li>
+                        <li>Умеешь поддержать и выслушать</li>
+                        <li>Мечтаешь о нашей семье</li>
+                    </ul>
+                </div>
+                <div class="diff-heart">❤️</div>
+                <div class="diff-card diff-me">
+                    <h3>Я</h3>
+                    <ul>
+                        <li>Был чёрствым и злым — а ты растопила моё сердце</li>
+                        <li>Изменил мировоззрение, ведь появилась ты</li>
+                        <li>Стал стремиться к лучшему</li>
+                        <li>Стараюсь делать тебя счастливой</li>
+                        <li>Люблю то, что не любишь ты — но мы всё равно ищем общее и кайфуем от этого</li>
+                        <li>Люблю тебя больше всего</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="diff-bottom">Разные вкусы. Разные привычки. Но одно сердце на двоих.</p>
+        </section>
+
+        <!-- СТАТИСТИКА -->
+        <section class="block stats-block">
+            <h2 class="block-title">Наша статистика</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-number">180+</span><span class="stat-label">дней вместе</span></div>
+                <div class="stat-card"><span class="stat-number">∞</span><span class="stat-label">сообщений</span></div>
+                <div class="stat-card"><span class="stat-number">1000+</span><span class="stat-label">раз «люблю»</span></div>
+                <div class="stat-card"><span class="stat-number">1</span><span class="stat-label">ты и я</span></div>
+            </div>
+        </section>
+
+        <!-- КОМПЛИМЕНТЫ -->
+        <section class="block compliments-block">
+            <h2 class="block-title">Комплименты для тебя</h2>
+            <p class="block-subtitle">Нажми — и получи тёплое слово</p>
+            <button class="compliment-btn" id="complimentBtn">💌 Скажи мне что-то тёплое</button>
+            <div class="compliment-message" id="complimentMessage"></div>
+        </section>
+
+        <!-- СЕКРЕТЫ -->
+        <section class="block secrets-block">
+            <h2 class="block-title">Секретные послания</h2>
+            <p class="block-subtitle">Открой, когда...</p>
+            <div class="secrets-grid">
+                <button class="secret-btn" data-secret="sad">😢 Когда грустно</button>
+                <button class="secret-btn" data-secret="miss">💭 Когда скучаешь</button>
+                <button class="secret-btn" data-secret="angry">😤 Когда злишься</button>
+                <button class="secret-btn" data-secret="happy">😊 Когда счастлива</button>
+                <button class="secret-btn" data-secret="fight">🥺 Когда мы поссорились</button>
+                <button class="secret-btn" data-secret="work">💅 Когда устала на работе</button>
+                <button class="secret-btn" data-secret="future">🌅 Когда думаешь о будущем</button>
+            </div>
+            <div class="secret-message" id="secretMessage"></div>
+        </section>
+
+        <!-- ПРО МЕНЯ -->
+        <section class="block me-block" id="me">
+            <h2 class="block-title">Немного обо мне</h2>
+            <p class="block-subtitle">Запомни — пригодится в испытаниях 😉</p>
+            <div class="me-grid">
+                <div class="me-item"><span class="me-icon">🥤</span><div><h3>Пепси</h3><p>Мой любимый напиток. Без вариантов.</p></div></div>
+                <div class="me-item"><span class="me-icon">🪖</span><div><h3>Милитари</h3><p>Мой стиль: строгий, надёжный, без лишнего.</p></div></div>
+                <div class="me-item"><span class="me-icon">🍂</span><div><h3>Осень</h3><p>Моё любимое время года.</p></div></div>
+                <div class="me-item"><span class="me-icon swatch"></span><div><h3>Оливковый</h3><p>Мой любимый цвет.</p></div></div>
+                <div class="me-item"><span class="me-icon">🏡</span><div><h3>Дом на Кубани</h3><p>Моя мечта — свой дом на Кубани. И чтобы ты в нём была.</p></div></div>
+                <div class="me-item"><span class="me-icon">🌿</span><div><h3>Природа</h3><p>Люблю тишину, свежий воздух и всё живое.</p></div></div>
+                <div class="me-item"><span class="me-icon">🤠</span><div><h3>Вестерн</h3><p>Дикий Запад и всё, что с ним связано.</p></div></div>
+                <div class="me-item"><span class="me-icon">👶</span><div><h3>Наши дети</h3><p>Буду любить наших будущих детей.</p></div></div>
+                <div class="me-item her"><span class="me-icon">❤️</span><div><h3>Даша</h3><p>Люблю безумно. Это не вопрос викторины — это факт.</p></div></div>
+            </div>
+        </section>
+
+        <!-- ИГРЫ -->
+        <section class="block games-block" id="games">
+            <h2 class="block-title">🎮 Испытания</h2>
+            <p class="block-subtitle">Пройди все — и собери письмо целиком</p>
+
+            <div class="games-grid">
+                <div class="game-card" id="game1Card"><div class="game-status" id="game1Status">🔒</div><h3>Поймай сердечки</h3><p>Набери 15 сердечек за 30 секунд</p><button class="game-btn" onclick="startGame1()">Играть</button></div>
+                <div class="game-card" id="game2Card"><div class="game-status" id="game2Status">🔒</div><h3>Найди пару</h3><p>Открой все пары — тут всё, что я люблю</p><button class="game-btn" onclick="startGame2()">Играть</button></div>
+                <div class="game-card" id="game3Card"><div class="game-status" id="game3Status">🔒</div><h3>Викторина про меня</h3><p>Ответь на 7 вопросов обо мне</p><button class="game-btn" onclick="startGame3()">Играть</button></div>
+                <div class="game-card" id="game4Card"><div class="game-status" id="game4Status">🔒</div><h3>Тир на Диком Западе</h3><p>Попади в 12 мишеней за 30 секунд</p><button class="game-btn" onclick="startGame4()">Играть</button></div>
+                <div class="game-card" id="game5Card"><div class="game-status" id="game5Status">🔒</div><h3>Дуэль</h3><p>Нажми быстрее ковбоя — за 0.5 сек</p><button class="game-btn" onclick="startGame5()">Играть</button></div>
+                <div class="game-card" id="game6Card"><div class="game-status" id="game6Status">🔒</div><h3>Собери даты</h3><p>Расставь события по порядку</p><button class="game-btn" onclick="startGame6()">Играть</button></div>
+                <div class="game-card" id="game7Card"><div class="game-status" id="game7Status">🔒</div><h3>Тетрис</h3><p>Собери 5 линий</p><button class="game-btn" onclick="startGame7()">Играть</button></div>
+            </div>
+
+            <div class="game-modal" id="gameModal">
+                <div class="game-modal-content">
+                    <button class="game-close" onclick="closeGame()">✕</button>
+                    <div id="gameArea"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПИСЬМО -->
+        <section class="block letter-block" id="letter">
+            <h2 class="block-title">Письмо для тебя</h2>
+            <p class="block-subtitle">Собери все обрывки, пройдя испытания</p>
+            <div class="letter-progress">
+                <span id="letterProgressText">Собрано: 0 / 7</span>
+                <div class="letter-progress-bar"><div class="letter-progress-fill" id="letterProgressFill"></div></div>
+            </div>
+            <div class="letter-fragments" id="letterFragments">
+                <div class="letter-fragment" id="fragment1"><p class="fragment-placeholder">🔒 Пройди игру 1</p></div>
+                <div class="letter-fragment" id="fragment2"><p class="fragment-placeholder">🔒 Пройди игру 2</p></div>
+                <div class="letter-fragment" id="fragment3"><p class="fragment-placeholder">🔒 Пройди игру 3</p></div>
+                <div class="letter-fragment" id="fragment4"><p class="fragment-placeholder">🔒 Пройди игру 4</p></div>
+                <div class="letter-fragment" id="fragment5"><p class="fragment-placeholder">🔒 Пройди игру 5</p></div>
+                <div class="letter-fragment" id="fragment6"><p class="fragment-placeholder">🔒 Пройди игру 6</p></div>
+                <div class="letter-fragment" id="fragment7"><p class="fragment-placeholder">🔒 Пройди игру 7</p></div>
+            </div>
+        </section>
+
+        <!-- БУДУЩЕЕ -->
+        <section class="block future-block" id="future">
+            <h2 class="block-title">Наше будущее</h2>
+            <p class="block-subtitle">Каким я его вижу</p>
+
+            <div class="future-timeline">
+                <div class="future-item"><div class="future-icon">🎖️</div><h3>Я вернусь с армии</h3><p>И первое, что я сделаю — приеду к тебе. Обниму. И больше не отпущу.</p></div>
+                <div class="future-item"><div class="future-icon">🚗</div><h3>Мы уедем в другой город</h3><p>Вдвоём. С чемоданами, мечтами и тобой за руку.</p></div>
+                <div class="future-item"><div class="future-icon">🏡</div><h3>Снимем квартиру</h3><p>Маленькую, но нашу. Где будем пить кофе по утрам.</p></div>
+                <div class="future-item"><div class="future-icon">💍</div><h3>Я сделаю тебе предложение</h3><p>По-настоящему. Когда придёт время. И ты скажешь «да».</p></div>
+                <div class="future-item"><div class="future-icon">👶</div><h3>У нас будут дети</h3><p>Наши. С твоей улыбкой и моим характером.</p></div>
+                <div class="future-item"><div class="future-icon">🏗️</div><h3>Мы построим дом</h3><p>Своими руками. С садом, с качелями, с местом для всех, кого мы любим.</p></div>
+                <div class="future-item"><div class="future-icon">🌅</div><h3>А в старости</h3><p>Будем жить в этом доме. Вдвоём. Смотреть на закат. Держаться за руки.</p></div>
+            </div>
+
+            <p class="future-final">Я хочу всё это. С тобой. Не когда-нибудь. А однажды. И я сделаю для этого всё.</p>
+        </section>
+
+        <div class="marquee" aria-hidden="true"><div class="marquee-track"><div class="mq"><span>Я люблю тебя ♥</span><span>Ti amo ♥</span><span>Je t'aime ♥</span><span>Te quiero ♥</span><span>Ich liebe dich ♥</span><span>I love you ♥</span></div><div class="mq"><span>Я люблю тебя ♥</span><span>Ti amo ♥</span><span>Je t'aime ♥</span><span>Te quiero ♥</span><span>Ich liebe dich ♥</span><span>I love you ♥</span></div></div></div>
+
+        <!-- ФИНАЛ -->
+        <section class="block final-block">
+            <div class="final-comment">
+                <canvas id="constellation" width="360" height="320" aria-label="Сердце из звёзд"></canvas>
+                <h2 class="final-title">От меня</h2>
+                <p class="final-text">
+                    Даша. Ты — самое важное, что случилось со мной. Я не знаю, что будет завтра,
+                    но я знаю, что хочу провести с тобой всё, что будет после.
+                    Спасибо, что ты есть. Спасибо, что не бросила. Спасибо, что ты — ты.
+                </p>
+                <p class="final-signature">Твой. Навсегда. ❤️</p>
+            </div>
+        </section>
+
+        <!-- СЕКРЕТНЫЙ ЭКРАН -->
+        <div class="secret-screen" id="secretScreen">
+            <div class="secret-content">
+                <div class="secret-line" id="secretLine1">Я сука знал что ты пройдешь все игры...</div>
+                <div class="secret-line" id="secretLine2">Я знаю что у тебя всё хорошо с памятью...</div>
+                <div class="secret-line-final" id="secretLine3">Запомни эту дату</div>
+                <div class="secret-date" id="secretDate">ХХ декабря 2026</div>
+                <button class="secret-close" id="secretClose">Закрыть</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="upgrade.js"></script>
+</body>
+</html>
